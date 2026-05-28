@@ -1,0 +1,65 @@
+<view class="container">
+  <!-- 当前月份 -->
+  <view class="month-header">
+    <text class="month-title">{{currentMonth}} 记账</text>
+    <text class="today-total">今日支出 ¥{{todayTotal}}</text>
+  </view>
+
+  <!-- 金额输入 -->
+  <view class="card">
+    <text class="section-title">金额</text>
+    <view class="amount-input-wrap">
+      <text class="yuan-symbol">¥</text>
+      <input
+        class="amount-input"
+        type="digit"
+        placeholder="0.00"
+        value="{{amount}}"
+        bindinput="onAmountInput"
+      />
+    </view>
+  </view>
+
+  <!-- 分类选择 -->
+  <view class="card">
+    <text class="section-title">分类</text>
+    <view class="category-grid">
+      <view
+        wx:for="{{categories}}"
+        wx:key="value"
+        class="category-item {{selectedCategory === item.value ? 'selected' : ''}}"
+        bindtap="onCategorySelect"
+        data-value="{{item.value}}"
+      >
+        <text class="category-emoji">{{item.emoji}}</text>
+        <text class="category-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 日期选择 -->
+  <view class="card">
+    <text class="section-title">日期</text>
+    <picker mode="date" value="{{selectedDate}}" bindchange="onDateChange">
+      <view class="date-picker">
+        <text>{{selectedDate}}</text>
+        <text class="arrow">›</text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 备注 -->
+  <view class="card">
+    <text class="section-title">备注</text>
+    <input
+      class="input-field"
+      type="text"
+      placeholder="添加备注..."
+      value="{{remark}}"
+      bindinput="onRemarkInput"
+    />
+  </view>
+
+  <!-- 提交按钮 -->
+  <button class="btn-primary" bindtap="onSubmit">记一笔</button>
+</view>

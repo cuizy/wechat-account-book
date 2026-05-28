@@ -1,0 +1,39 @@
+<view class="container">
+  <!-- 本月总支出 -->
+  <view class="total-card">
+    <text class="total-label">{{currentMonth}} 支出报表</text>
+    <text class="total-amount">¥{{monthTotal}}</text>
+  </view>
+
+  <!-- 分类统计 -->
+  <view class="card">
+    <text class="section-title">分类支出</text>
+    <view wx:if="{{categoryStats.length === 0}}" class="empty-tip">
+      <text>暂无支出数据</text>
+    </view>
+    <view wx:else class="stats-list">
+      <view
+        wx:for="{{categoryStats}}"
+        wx:key="key"
+        class="stats-item"
+      >
+        <view class="stats-left">
+          <text class="stats-emoji">{{item.emoji}}</text>
+          <view class="stats-info">
+            <text class="stats-name">{{item.name}}</text>
+            <view class="progress-bar">
+              <view
+                class="progress-fill"
+                style="width: {{item.percentage}}%"
+              ></view>
+            </view>
+          </view>
+        </view>
+        <view class="stats-right">
+          <text class="stats-amount">¥{{item.amount.toFixed(2)}}</text>
+          <text class="stats-percent">{{item.percentage}}%</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

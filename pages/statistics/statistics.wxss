@@ -1,0 +1,91 @@
+.total-card {
+  background: linear-gradient(135deg, #1890ff, #3eb8ff);
+  border-radius: 16rpx;
+  padding: 40rpx;
+  margin-bottom: 20rpx;
+  color: #fff;
+}
+
+.total-label {
+  font-size: 28rpx;
+  opacity: 0.9;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.total-amount {
+  font-size: 56rpx;
+  font-weight: 700;
+}
+
+.empty-tip {
+  text-align: center;
+  padding: 60rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}
+
+.stats-list {
+  margin-top: 10rpx;
+}
+
+.stats-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+}
+
+.stats-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.stats-emoji {
+  font-size: 40rpx;
+  margin-right: 20rpx;
+}
+
+.stats-info {
+  flex: 1;
+  margin-right: 20rpx;
+}
+
+.stats-name {
+  font-size: 28rpx;
+  color: #333;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.progress-bar {
+  height: 12rpx;
+  background: #f0f0f0;
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1890ff, #3eb8ff);
+  border-radius: 6rpx;
+  transition: width 0.3s;
+}
+
+.stats-right {
+  text-align: right;
+  min-width: 120rpx;
+}
+
+.stats-amount {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 600;
+  display: block;
+}
+
+.stats-percent {
+  font-size: 24rpx;
+  color: #999;
+}

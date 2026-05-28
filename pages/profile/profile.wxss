@@ -1,0 +1,30 @@
+.stats-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40rpx;
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #1890ff;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.stat-label {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.stat-divider {
+  width: 1rpx;
+  height: 80rpx;
+  background: #eee;
+}

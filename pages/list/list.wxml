@@ -1,0 +1,47 @@
+<view class="container">
+  <!-- 月份筛选 -->
+  <view class="card">
+    <picker mode="selector" range="{{months}}" bindchange="onMonthChange">
+      <view class="month-picker">
+        <text class="picker-label">选择月份</text>
+        <view class="picker-value">
+          <text>{{selectedMonth}}</text>
+          <text class="arrow">›</text>
+        </view>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 本月总支出 -->
+  <view class="total-card">
+    <text class="total-label">{{selectedMonth}} 支出</text>
+    <text class="total-amount">¥{{monthTotal}}</text>
+  </view>
+
+  <!-- 记录列表 -->
+  <view class="card">
+    <text class="section-title">账单明细</text>
+    <view wx:if="{{records.length === 0}}" class="empty-tip">
+      <text>暂无账单记录</text>
+    </view>
+    <view wx:else class="record-list">
+      <view
+        wx:for="{{records}}"
+        wx:key="id"
+        class="record-item"
+      >
+        <view class="record-left">
+          <text class="record-emoji">{{item.emoji}}</text>
+          <view class="record-info">
+            <text class="record-category">{{item.categoryName}}</text>
+            <text class="record-date">{{item.date}}</text>
+          </view>
+        </view>
+        <view class="record-right">
+          <text class="record-amount">-¥{{item.amount}}</text>
+          <text class="delete-btn" bindtap="onDelete" data-id="{{item.id}}">删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
