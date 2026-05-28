@@ -1,4 +1,15 @@
 <view class="container">
+  <!-- 搜索框 -->
+  <view class="card search-card">
+    <input
+      class="search-input"
+      type="text"
+      placeholder="搜索备注/分类..."
+      value="{{searchKeyword}}"
+      bindinput="onSearch"
+    />
+  </view>
+
   <!-- 月份筛选 -->
   <view class="card">
     <picker mode="selector" range="{{months}}" bindchange="onMonthChange">
@@ -35,6 +46,7 @@
           <view class="record-info">
             <text class="record-category">{{item.categoryName}}</text>
             <text class="record-date">{{item.date}}</text>
+            <text wx:if="{{item.remark}}" class="record-remark">{{item.remark}}</text>
           </view>
         </view>
         <view class="record-right">

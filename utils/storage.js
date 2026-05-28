@@ -51,6 +51,19 @@ function getRecordsByMonth(monthStr) {
 }
 
 /**
+ * 搜索记录（按备注/分类）
+ */
+function searchRecords(keyword, monthStr) {
+  let records = getRecordsByMonth(monthStr);
+  if (!keyword) return records;
+  const kw = keyword.toLowerCase();
+  return records.filter(r =>
+    r.remark.toLowerCase().includes(kw) ||
+    r.category.toLowerCase().includes(kw)
+  );
+}
+
+/**
  * 删除一条记录
  */
 function deleteRecord(id) {
@@ -104,14 +117,89 @@ function getMonthStatsByCategory(monthStr) {
   return stats;
 }
 
+// ==================== 分类管理 ====================
+
+const CATEGORIES_KEY = 'custom_categories';
+
+const DEFAULT_CATEGORIES = [
+  { name: '餐饮', emoji: '🍜', value: 'catering', color: '#ff6b6b' },
+  { name: '交通', emoji: '🚗', value: 'transport', color: '#4ecdc4' },
+  { name: '购物', emoji: '🛒', value: 'shopping', color: '#ff9f43' },
+  { name: '娱乐', emoji: '🎮', value: 'entertainment', color: '#a55eea' },
+  { name: '居住', emoji: '🏠', value: 'living', color: '#26de81' },
+  { name: '医疗', emoji: '💊', value: 'medical', color: '#ff6348' },
+  { name: '教育', emoji: '📚', value: 'education', color: '#45aaf2' },
+  { name: '其他', emoji: '📌', value: 'other', color: '#95afc0' }
+];
+
+/**
+ * 获取分类列表（含自定义）
+ */
+function getCategories() {
+  const stored = wx.getStorageSync(CATEGORIES_KEY);
+  if (stored && stored.length > 0) return stored;
+  return DEFAULT_CATEGORIES;
+}
+
+/**
+ * 保存自定义分类
+ */
+function saveCategories(categories) {
+  wx.setStorageSync(CATEGORIES_KEY, categories);
+}
+
+/**
+ * 添加自定义分类
+ */
+function addCategory(name, emoji, value, color) {
+  const cats = getCategories();
+  cats.push({ name, emoji, value, color });
+  saveCategories(cats);
+}
+
+/**
+ * 删除自定义分类
+ */
+function deleteCategory(value) {
+  const cats = getCategories().filter(c => c.value !== value);
+  saveCategories(cats);
+}
+
+// ==================== 预算管理 ====================
+
+const BUDGET_KEY = 'monthly_budget';
+
+/**
+ * 获取指定月份的预算
+ */
+function getMonthBudget(monthStr) {
+  const budget = wx.getStorageSync(BUDGET_KEY) || {};
+  return budget[monthStr] || 0;
+}
+
+/**
+ * 设置指定月份的预算
+ */
+function setMonthBudget(monthStr, amount) {
+  const budget = wx.getStorageSync(BUDGET_KEY) || {};
+  budget[monthStr] = parseFloat(amount) || 0;
+  wx.setStorageSync(BUDGET_KEY, budget);
+}
+
 module.exports = {
   addRecord,
   getRecords,
   getRecordsByMonth,
+  searchRecords,
   deleteRecord,
   clearRecords,
   getMonthTotal,
   getTotalAmount,
   getTotalCount,
-  getMonthStatsByCategory
+  getMonthStatsByCategory,
+  getCategories,
+  addCategory,
+  deleteCategory,
+  getMonthBudget,
+  setMonthBudget
 };

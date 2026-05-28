@@ -6,16 +6,59 @@
   color: #fff;
 }
 
+.total-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
 .total-label {
   font-size: 28rpx;
   opacity: 0.9;
   display: block;
-  margin-bottom: 12rpx;
+}
+
+.budget-btn {
+  font-size: 26rpx;
+  background: rgba(255,255,255,0.2);
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx;
 }
 
 .total-amount {
   font-size: 56rpx;
   font-weight: 700;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.budget-info {
+  margin-top: 10rpx;
+}
+
+.budget-bar {
+  height: 12rpx;
+  background: rgba(255,255,255,0.3);
+  border-radius: 6rpx;
+  overflow: hidden;
+  margin-bottom: 8rpx;
+}
+
+.budget-fill {
+  height: 100%;
+  background: #fff;
+  border-radius: 6rpx;
+  transition: width 0.3s;
+}
+
+.budget-fill.over {
+  background: #ff4d4f;
+}
+
+.budget-text {
+  font-size: 24rpx;
+  opacity: 0.9;
 }
 
 .empty-tip {

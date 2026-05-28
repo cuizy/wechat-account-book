@@ -1,8 +1,17 @@
 <view class="container">
   <!-- 本月总支出 -->
   <view class="total-card">
-    <text class="total-label">{{currentMonth}} 支出报表</text>
+    <view class="total-top">
+      <text class="total-label">{{currentMonth}} 支出报表</text>
+      <text class="budget-btn" bindtap="onSetBudget">预算</text>
+    </view>
     <text class="total-amount">¥{{monthTotal}}</text>
+    <view wx:if="{{budget > 0}}" class="budget-info">
+      <view class="budget-bar">
+        <view class="budget-fill {{budgetPercent >= 100 ? 'over' : ''}}" style="width: {{budgetPercent}}%"></view>
+      </view>
+      <text class="budget-text">预算 ¥{{budget}} ({{budgetPercent}}%)</text>
+    </view>
   </view>
 
   <!-- 分类统计 -->

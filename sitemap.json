@@ -1,0 +1,4 @@
+{
+  "desc": "用于配置文件说明",
+  "rules": [{ "action": "allow", "page": "*" }]
+}

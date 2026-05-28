@@ -19,7 +19,8 @@ Page({
     records: [],
     monthTotal: 0,
     months: [],
-    selectedMonth: ''
+    selectedMonth: '',
+    searchKeyword: ''
   },
 
   onLoad() {
@@ -31,7 +32,6 @@ Page({
     this.loadRecords();
   },
 
-  // 初始化月份选择器
   initMonths() {
     const months = [];
     const now = new Date();
@@ -42,7 +42,6 @@ Page({
     this.setData({ months, selectedMonth: months[0] });
   },
 
-  // 月份切换
   onMonthChange(e) {
     const idx = e.detail.value;
     const month = this.data.months[idx];
@@ -50,9 +49,13 @@ Page({
     this.loadRecords();
   },
 
-  // 加载记录
+  onSearch(e) {
+    this.setData({ searchKeyword: e.detail.value });
+    this.loadRecords();
+  },
+
   loadRecords() {
-    const records = storage.getRecordsByMonth(this.data.selectedMonth);
+    const records = storage.searchRecords(this.data.searchKeyword, this.data.selectedMonth);
     const formatted = records.map(r => {
       const cat = CATEGORY_MAP[r.category] || CATEGORY_MAP.other;
       return { ...r, emoji: cat.emoji, categoryName: cat.name };
@@ -61,7 +64,6 @@ Page({
     this.setData({ records: formatted, monthTotal: total.toFixed(2) });
   },
 
-  // 删除记录
   onDelete(e) {
     const id = e.currentTarget.dataset.id;
     wx.showModal({
