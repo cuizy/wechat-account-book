@@ -12,7 +12,7 @@
     "minified": true
   },
   "compileType": "miniprogram",
-  "appid": "替换为你的小程序appid",
+  "appid": "wx8dad17411c98195e",
   "projectname": "account-book",
   "miniprogramRoot": "",
   "condition": {}
