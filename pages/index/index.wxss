@@ -102,3 +102,42 @@
   box-sizing: border-box;
   width: 100%;
 }
+
+.remark-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.image-btn {
+  width: 56rpx;
+  height: 56rpx;
+  background: #e6f7ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid #1890ff;
+}
+
+.image-btn-icon {
+  font-size: 28rpx;
+}
+
+.remark-row {
+  display: flex;
+  gap: 16rpx;
+  align-items: flex-start;
+}
+
+.remark-field {
+  flex: 1;
+}
+
+.remark-image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 12rpx;
+  flex-shrink: 0;
+}

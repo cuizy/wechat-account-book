@@ -27,6 +27,7 @@ function addRecord(record) {
     category: record.category,
     date: record.date,
     remark: record.remark || '',
+    imagePath: record.imagePath || '',
     createTime: Date.now()
   };
   data.records.unshift(newRecord);

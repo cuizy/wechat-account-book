@@ -47,6 +47,7 @@
             <text class="record-category">{{item.categoryName}}</text>
             <text class="record-date">{{item.date}}</text>
             <text wx:if="{{item.remark}}" class="record-remark">{{item.remark}}</text>
+            <image wx:if="{{item.imagePath}}" class="record-image" src="{{item.imagePath}}" mode="aspectFill"></image>
           </view>
         </view>
         <view class="record-right">

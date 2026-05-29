@@ -50,13 +50,21 @@
 
   <!-- 备注 -->
   <view class="card">
-    <text class="section-title">备注</text>
-    <textarea
-      class="remark-field"
-      placeholder="添加备注..."
-      value="{{remark}}"
-      bindinput="onRemarkInput"
-    ></textarea>
+    <view class="remark-header">
+      <text class="section-title">备注</text>
+      <view class="image-btn" bindtap="onAddImage">
+        <text class="image-btn-icon">📷</text>
+      </view>
+    </view>
+    <view class="remark-row">
+      <textarea
+        class="remark-field"
+        placeholder="添加备注..."
+        value="{{remark}}"
+        bindinput="onRemarkInput"
+      ></textarea>
+      <image wx:if="{{imagePath}}" class="remark-image" src="{{imagePath}}" mode="aspectFill" bindtap="onRemoveImage"></image>
+    </view>
   </view>
 
   <!-- 提交按钮 -->

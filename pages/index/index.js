@@ -8,6 +8,7 @@ Page({
     selectedCategory: '',
     selectedDate: dateUtils.formatDate(new Date()),
     remark: '',
+    imagePath: '',
     categories: [],
     todayTotal: 0
   },
@@ -29,6 +30,21 @@ Page({
     this.setData({ remark: e.detail.value });
   },
 
+  onAddImage() {
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
+        this.setData({ imagePath: res.tempFilePaths[0] });
+      }
+    });
+  },
+
+  onRemoveImage() {
+    this.setData({ imagePath: '' });
+  },
+
   onCategorySelect(e) {
     const value = e.currentTarget.dataset.value;
     this.setData({ selectedCategory: value });
@@ -39,7 +55,7 @@ Page({
   },
 
   onSubmit() {
-    const { amount, selectedCategory, selectedDate, remark } = this.data;
+    const { amount, selectedCategory, selectedDate, remark, imagePath } = this.data;
 
     if (!amount || parseFloat(amount) <= 0) {
       wx.showToast({ title: '请输入有效金额', icon: 'none' });
@@ -54,7 +70,8 @@ Page({
       amount,
       category: selectedCategory,
       date: selectedDate,
-      remark
+      remark,
+      imagePath
     });
 
     wx.showToast({ title: '记账成功', icon: 'success' });
@@ -62,7 +79,8 @@ Page({
     this.setData({
       amount: '',
       selectedCategory: '',
-      remark: ''
+      remark: '',
+      imagePath: ''
     });
     this.calculateTodayTotal();
   },
