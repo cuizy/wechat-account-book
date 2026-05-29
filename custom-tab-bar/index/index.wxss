@@ -26,10 +26,11 @@
 }
 
 .label {
-  font-size: 28rpx;
+  font-size: 34rpx;
   color: #999999;
 }
 
 .tab-item.active .label {
   color: #1890ff;
+  font-weight: 600;
 }
