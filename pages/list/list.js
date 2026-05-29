@@ -48,7 +48,11 @@ Page({
         unique.push(m);
       }
     }
-    this.setData({ months: unique, selectedMonth: unique[0] });
+    this.setData({
+      months: unique,
+      selectedMonth: unique[0],
+      monthIndex: 0
+    });
   },
 
   onMonthChange(e) {

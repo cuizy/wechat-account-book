@@ -12,7 +12,7 @@
 
   <!-- 月份筛选 -->
   <view class="card">
-    <picker mode="selector" range="{{months}}" bindchange="onMonthChange">
+    <picker mode="selector" value="{{monthIndex}}" range="{{months}}" bindchange="onMonthChange">
       <view class="month-picker">
         <text class="picker-label">选择月份</text>
         <view class="picker-value">
