@@ -28,7 +28,7 @@ jobs:
       - name: Upload to WeChat
         run: node ci.js
         env:
-          WECHAT_APPID: ${{ secrets.WECHAT_APPID }}
+          WECHAT_APPID: wx8dad17411c98195e
           WECHAT_PRIVATE_KEY_PATH: ${{ github.workspace }}/.keys/wechat-private.pem
           WECHAT_VERSION: ${{ github.run_number }}
           CI: true
