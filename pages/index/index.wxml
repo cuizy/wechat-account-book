@@ -51,13 +51,12 @@
   <!-- 备注 -->
   <view class="card">
     <text class="section-title">备注</text>
-    <input
-      class="input-field"
-      type="text"
+    <textarea
+      class="remark-field"
       placeholder="添加备注..."
       value="{{remark}}"
       bindinput="onRemarkInput"
-    />
+    ></textarea>
   </view>
 
   <!-- 提交按钮 -->
