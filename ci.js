@@ -21,6 +21,7 @@ const { Project, upload } = require('miniprogram-ci');
 // 从环境变量读取配置
 const appid = process.env.WECHAT_APPID;
 const privateKeyPath = process.env.WECHAT_PRIVATE_KEY_PATH;
+const privateKeyContent = process.env.WECHAT_PRIVATE_KEY_CONTENT;
 const version = process.env.WECHAT_VERSION || getPackageVersion();
 const desc = process.env.WECHAT_DESC || `ci-upload-${new Date().toISOString().slice(0, 19)}`;
 const robot = parseInt(process.env.WECHAT_ROBOT || '1');
@@ -36,17 +37,35 @@ function getPackageVersion() {
 }
 
 // 验证必要参数
-if (!appid || !privateKeyPath) {
+if (!appid) {
   console.error('❌ 缺少必要环境变量!');
-  console.error('请设置: WECHAT_APPID, WECHAT_PRIVATE_KEY_PATH');
+  console.error('请设置: WECHAT_APPID');
   console.error('');
   console.error('示例:');
   console.error('  WECHAT_APPID=wx8dad17411c98195e WECHAT_PRIVATE_KEY_PATH=/path/to/private.pem node ci.js');
   process.exit(1);
 }
 
-if (!fs.existsSync(privateKeyPath)) {
-  console.error(`❌ 私钥文件不存在: ${privateKeyPath}`);
+// 如果传了私钥内容，直接写入临时文件
+if (privateKeyContent) {
+  const os = require('os');
+  const tmp = path.join(os.tmpdir(), 'wechat-private-' + Date.now() + '.pem');
+  fs.writeFileSync(tmp, privateKeyContent, 'utf8');
+  fs.chmodSync(tmp, 0o600);
+  console.log('  私钥:       ' + tmp + ' (from env)');
+  process.on('exit', () => { try { fs.unlinkSync(tmp); } catch {} });
+} else if (!privateKeyPath) {
+  console.error('❌ 缺少必要环境变量!');
+  console.error('请设置: WECHAT_PRIVATE_KEY_PATH 或 WECHAT_PRIVATE_KEY_CONTENT');
+  process.exit(1);
+}
+
+const resolvedPrivateKeyPath = privateKeyContent
+  ? path.join(require('os').tmpdir(), 'wechat-private-' + Date.now() + '.pem')
+  : privateKeyPath;
+
+if (!fs.existsSync(resolvedPrivateKeyPath)) {
+  console.error('❌ 私钥文件不存在: ' + resolvedPrivateKeyPath);
   process.exit(1);
 }
 
@@ -67,7 +86,7 @@ async function main() {
     appid,
     type: 'miniProgram',
     projectPath,
-    privateKeyPath,
+    privateKeyPath: resolvedPrivateKeyPath,
     // 忽略上传警告（可选）
     // ignoreUploadUnusedFiles: false,
   });

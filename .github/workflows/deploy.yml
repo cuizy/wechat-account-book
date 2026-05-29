@@ -19,21 +19,12 @@ jobs:
       - name: Install deps
         run: npm install
 
-      - name: Write private key (base64 -> PEM)
-        run: |
-          mkdir -p .keys
-          # Write base64 secret to file, then decode to PEM
-          printf '%s' "$WECHAT_PRIVATE_KEY" > .keys/wechat-private.b64
-          tr -d '\n' < .keys/wechat-private.b64 | base64 -d > .keys/wechat-private.pem
-          chmod 600 .keys/wechat-private.pem
-
       - name: Upload to WeChat
         run: node ci.js
         env:
           WECHAT_APPID: ${{ secrets.WECHAT_APPID }}
-          WECHAT_PRIVATE_KEY_PATH: ${{ github.workspace }}/.keys/wechat-private.pem
+          WECHAT_PRIVATE_KEY_CONTENT: ${{ secrets.WECHAT_PRIVATE_KEY }}
           WECHAT_VERSION: ${{ github.run_number }}
           CI: true
-          # Try legacy provider for OpenSSL 3.x
           OPENSSL_ENABLE_LEGACY_PROVIDER: true
           NODE_OPTIONS: --openssl-legacy-provider
