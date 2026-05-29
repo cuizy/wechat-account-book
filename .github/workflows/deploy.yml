@@ -30,4 +30,5 @@ jobs:
         env:
           WECHAT_APPID: ${{ secrets.WECHAT_APPID }}
           WECHAT_PRIVATE_KEY_PATH: ${{ github.workspace }}/.keys/wechat-private.pem
+          WECHAT_VERSION: ${{ github.run_number }}
           CI: true
