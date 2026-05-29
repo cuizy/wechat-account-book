@@ -1,0 +1,23 @@
+{
+  "name": "wechat-account-book",
+  "version": "1.0.0",
+  "description": "简洁实用的微信小程序记账工具，支持账单记录、统计报表、预算管理和分类管理。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cuizy/wechat-account-book.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cuizy/wechat-account-book/issues"
+  },
+  "homepage": "https://github.com/cuizy/wechat-account-book#readme",
+  "dependencies": {
+    "miniprogram-ci": "^2.1.31"
+  }
+}
