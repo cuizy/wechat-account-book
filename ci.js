@@ -49,7 +49,8 @@ if (!appid) {
 // 如果传了私钥内容，直接写入临时文件
 if (privateKeyContent) {
   const os = require('os');
-  const tmp = path.join(os.tmpdir(), 'wechat-private-' + Date.now() + '.pem');
+  const ts = Date.now();
+  const tmp = path.join(os.tmpdir(), 'wechat-private-' + ts + '.pem');
   fs.writeFileSync(tmp, privateKeyContent, 'utf8');
   fs.chmodSync(tmp, 0o600);
   console.log('  私钥:       ' + tmp + ' (from env)');
@@ -61,7 +62,7 @@ if (privateKeyContent) {
 }
 
 const resolvedPrivateKeyPath = privateKeyContent
-  ? path.join(require('os').tmpdir(), 'wechat-private-' + Date.now() + '.pem')
+  ? path.join(require('os').tmpdir(), 'wechat-private-' + ts + '.pem')
   : privateKeyPath;
 
 if (!fs.existsSync(resolvedPrivateKeyPath)) {
