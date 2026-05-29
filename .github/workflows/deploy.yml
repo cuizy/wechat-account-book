@@ -19,11 +19,12 @@ jobs:
       - name: Install deps
         run: npm install
 
-      - name: Write private key (PKCS#8 for OpenSSL 3.x)
+      - name: Write private key (base64 -> PEM)
         run: |
           mkdir -p .keys
-          echo "$WECHAT_PRIVATE_KEY" > .keys/wechat-private-pkcs1.pem
-          openssl pkcs8 -topk8 -nocrypt -in .keys/wechat-private-pkcs1.pem -out .keys/wechat-private.pem
+          # Write base64 secret to file, then decode to PEM
+          printf '%s' "$WECHAT_PRIVATE_KEY" > .keys/wechat-private.b64
+          tr -d '\n' < .keys/wechat-private.b64 | base64 -d > .keys/wechat-private.pem
           chmod 600 .keys/wechat-private.pem
 
       - name: Upload to WeChat
