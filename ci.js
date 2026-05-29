@@ -47,9 +47,9 @@ if (!appid) {
 }
 
 // 如果传了私钥内容，直接写入临时文件
+const ts = privateKeyContent ? Date.now() : null;
 if (privateKeyContent) {
   const os = require('os');
-  const ts = Date.now();
   const tmp = path.join(os.tmpdir(), 'wechat-private-' + ts + '.pem');
   fs.writeFileSync(tmp, privateKeyContent, 'utf8');
   fs.chmodSync(tmp, 0o600);
