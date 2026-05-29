@@ -1,0 +1,12 @@
+<view class="tab-bar">
+  <view
+    wx:for="{{list}}"
+    wx:key="text"
+    class="tab-item {{selected === index ? 'active' : ''}}"
+    bindtap="switchTab"
+    data-index="{{index}}"
+  >
+    <image class="icon" src="/assets/{{selected === index ? item.activeIcon : item.icon}}.png" mode="aspectFit"/>
+    <text class="label">{{item.text}}</text>
+  </view>
+</view>

@@ -11,6 +11,9 @@
     "navigationBarTextStyle": "black",
     "backgroundColor": "#f5f5f5"
   },
+  "usingComponents": {
+    "tab-bar": "/custom-tab-bar/index/index"
+  },
   "tabBar": {
     "color": "#999999",
     "selectedColor": "#1890ff",
