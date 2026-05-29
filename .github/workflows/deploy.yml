@@ -19,9 +19,15 @@ jobs:
       - name: Install deps
         run: npm ci
 
+      - name: Write private key
+        run: |
+          mkdir -p .keys
+          echo "$WECHAT_PRIVATE_KEY" > .keys/wechat-private.pem
+          chmod 600 .keys/wechat-private.pem
+
       - name: Upload to WeChat
         run: node ci.js
         env:
           WECHAT_APPID: ${{ secrets.WECHAT_APPID }}
-          WECHAT_PRIVATE_KEY: ${{ secrets.WECHAT_PRIVATE_KEY }}
+          WECHAT_PRIVATE_KEY_PATH: ${{ github.workspace }}/.keys/wechat-private.pem
           CI: true
