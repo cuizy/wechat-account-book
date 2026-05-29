@@ -141,3 +141,10 @@
   border-radius: 12rpx;
   flex-shrink: 0;
 }
+
+.card {
+}
+
+.btn-primary {
+  margin-top: 20rpx;
+}
