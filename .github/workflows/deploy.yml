@@ -32,4 +32,6 @@ jobs:
           WECHAT_PRIVATE_KEY_PATH: ${{ github.workspace }}/.keys/wechat-private.pem
           WECHAT_VERSION: ${{ github.run_number }}
           CI: true
+          # Try legacy provider for OpenSSL 3.x
+          OPENSSL_ENABLE_LEGACY_PROVIDER: true
           NODE_OPTIONS: --openssl-legacy-provider
