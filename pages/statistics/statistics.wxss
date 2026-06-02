@@ -129,6 +129,7 @@
 }
 
 .export-btn {
-  font-size: 28rpx;
+  font-size: 32rpx;
   color: #1890ff;
+  padding-right: 8rpx;
 }
