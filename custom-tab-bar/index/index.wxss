@@ -26,7 +26,7 @@
 }
 
 .label {
-  font-size: 56rpx;
+  font-size: 64rpx;
   color: #999999;
 }
 
