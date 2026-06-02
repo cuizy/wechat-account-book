@@ -16,7 +16,10 @@
 
   <!-- 分类统计 -->
   <view class="card">
-    <text class="section-title">分类支出</text>
+    <view class="section-header">
+      <text class="section-title">分类支出</text>
+      <text class="export-btn" bindtap="onExportExcel">导出</text>
+    </view>
     <view wx:if="{{categoryStats.length === 0}}" class="empty-tip">
       <text>暂无支出数据</text>
     </view>

@@ -58,6 +58,55 @@ Page({
     });
   },
 
+  onExportExcel() {
+    const records = storage.getRecordsByMonth(this.data.currentMonth);
+    if (records.length === 0) {
+      wx.showToast({ title: '暂无数据可导出', icon: 'none' });
+      return;
+    }
+
+    const CATEGORY_NAMES = {
+      catering: '餐饮', transport: '交通', shopping: '购物',
+      entertainment: '娱乐', living: '居住', medical: '医疗',
+      education: '教育', other: '其他'
+    };
+
+    // 构造CSV内容
+    let csv = '\uFEFF日期,分类,金额,备注\n'; // BOM for Excel UTF-8
+    records.forEach(r => {
+      const cat = CATEGORY_NAMES[r.category] || r.category;
+      const remark = (r.remark || '').replace(/"/g, '""');
+      csv += `"${r.date}","${cat}","${r.amount}","${remark}"\n`;
+    });
+
+    const fileName = `${this.data.currentMonth}支出记录.csv`;
+    const fs = wx.getFileSystemManager();
+
+    // 写入临时文件
+    const tempFilePath = `${wx.env.USER_DATA_PATH}/${fileName}`;
+    fs.writeFile({
+      filePath: tempFilePath,
+      data: csv,
+      encoding: 'utf8',
+      success: () => {
+        wx.openDocument({
+          filePath: tempFilePath,
+          fileType: 'csv',
+          showMenu: true,
+          success: () => console.log('Excel打开成功'),
+          fail: err => {
+            wx.showToast({ title: '打开文件失败', icon: 'none' });
+            console.error(err);
+          }
+        });
+      },
+      fail: err => {
+        wx.showToast({ title: '创建文件失败', icon: 'none' });
+        console.error(err);
+      }
+    });
+  },
+
   // 设置预算
   onSetBudget() {
     wx.showModal({
