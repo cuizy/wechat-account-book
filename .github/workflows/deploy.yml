@@ -30,7 +30,8 @@ jobs:
             echo "::error::Secret WECHAT_PRIVATE_KEY is not set. Configure it in repo Settings → Secrets."
             exit 1
           fi
-          echo "✓ Secrets present (WECHAT_APPID=${WECHAT_APPID:0:8}..., key length=${#WECHAT_PRIVATE_KEY})"
+          # 不打印任何前缀/长度,只在日志显示 "已配置" 状态
+          echo "✓ Secrets present (WECHAT_APPID configured, WECHAT_PRIVATE_KEY configured)"
 
       - name: Install deps
         run: npm install
