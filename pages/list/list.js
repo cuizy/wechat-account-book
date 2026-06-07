@@ -28,18 +28,9 @@ Page({
       const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
       months.push(dateUtils.getCurrentMonth(d));
     }
-    // 去重：只保留每个月份第一次出现的结果
-    const unique = [];
-    const seen = new Set();
-    for (const m of months) {
-      if (!seen.has(m)) {
-        seen.add(m);
-        unique.push(m);
-      }
-    }
     this.setData({
-      months: unique,
-      selectedMonth: unique[0],
+      months,
+      selectedMonth: months[0],
       monthIndex: 0
     });
   },
