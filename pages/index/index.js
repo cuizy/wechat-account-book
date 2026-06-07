@@ -87,9 +87,9 @@ Page({
 
   calculateTodayTotal() {
     const today = dateUtils.formatDate(new Date());
-    const records = storage.getRecordsByMonth(this.data.currentMonth);
-    const todayRecords = records.filter(r => r.date === today);
-    const total = todayRecords.reduce((sum, r) => sum + parseFloat(r.amount), 0);
-    this.setData({ todayTotal: total.toFixed(2) });
+    const todayTotal = storage.getRecordsByMonth(this.data.currentMonth)
+      .filter(r => r.date === today)
+      .reduce((sum, r) => sum + parseFloat(r.amount), 0);
+    this.setData({ todayTotal: todayTotal.toFixed(2) });
   }
 });
