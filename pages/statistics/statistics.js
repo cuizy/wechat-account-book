@@ -1,17 +1,6 @@
 const storage = require('../../utils/storage');
 const dateUtils = require('../../utils/date');
-
-// 分类映射
-const CATEGORY_MAP = {
-  catering: { emoji: '🍜', name: '餐饮' },
-  transport: { emoji: '🚗', name: '交通' },
-  shopping: { emoji: '🛒', name: '购物' },
-  entertainment: { emoji: '🎮', name: '娱乐' },
-  living: { emoji: '🏠', name: '居住' },
-  medical: { emoji: '💊', name: '医疗' },
-  education: { emoji: '📚', name: '教育' },
-  other: { emoji: '📌', name: '其他' }
-};
+const category = require('../../utils/category');
 
 Page({
   data: {
@@ -40,7 +29,7 @@ Page({
 
     // 转换为数组并排序
     const entries = Object.entries(stats).map(([key, value]) => {
-      const cat = CATEGORY_MAP[key] || CATEGORY_MAP.other;
+      const cat = category.getCategory(key);
       return {
         key,
         emoji: cat.emoji,
@@ -65,18 +54,12 @@ Page({
       return;
     }
 
-    const CATEGORY_NAMES = {
-      catering: '餐饮', transport: '交通', shopping: '购物',
-      entertainment: '娱乐', living: '居住', medical: '医疗',
-      education: '教育', other: '其他'
-    };
-
     // 构造CSV内容
     let csv = '\uFEFF日期,分类,金额,备注\n'; // BOM for Excel UTF-8
     records.forEach(r => {
-      const cat = CATEGORY_NAMES[r.category] || r.category;
+      const catName = category.getCategoryName(r.category);
       const remark = (r.remark || '').replace(/"/g, '""');
-      csv += `"${r.date}","${cat}","${r.amount}","${remark}"\n`;
+      csv += `"${r.date}","${catName}","${r.amount}","${remark}"\n`;
     });
 
     const fileName = `${this.data.currentMonth}支出记录.csv`;

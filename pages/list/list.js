@@ -1,17 +1,6 @@
 const storage = require('../../utils/storage');
 const dateUtils = require('../../utils/date');
-
-// 分类映射
-const CATEGORY_MAP = {
-  catering: { emoji: '🍜', name: '餐饮' },
-  transport: { emoji: '🚗', name: '交通' },
-  shopping: { emoji: '🛒', name: '购物' },
-  entertainment: { emoji: '🎮', name: '娱乐' },
-  living: { emoji: '🏠', name: '居住' },
-  medical: { emoji: '💊', name: '医疗' },
-  education: { emoji: '📚', name: '教育' },
-  other: { emoji: '📌', name: '其他' }
-};
+const category = require('../../utils/category');
 
 Page({
   data: {
@@ -70,7 +59,7 @@ Page({
   loadRecords() {
     const records = storage.searchRecords(this.data.searchKeyword, this.data.selectedMonth);
     const formatted = records.map(r => {
-      const cat = CATEGORY_MAP[r.category] || CATEGORY_MAP.other;
+      const cat = category.getCategory(r.category);
       return { ...r, emoji: cat.emoji, categoryName: cat.name };
     });
     const total = storage.getMonthTotal(this.data.selectedMonth);
