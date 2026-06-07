@@ -187,7 +187,17 @@ function setMonthBudget(monthStr, amount) {
   wx.setStorageSync(BUDGET_KEY, budget);
 }
 
+/**
+ * 初始化本地存储数据(如果 key 不存在)
+ */
+function initData() {
+  if (!wx.getStorageSync(STORAGE_KEY)) {
+    wx.setStorageSync(STORAGE_KEY, { records: [] });
+  }
+}
+
 module.exports = {
+  initData,
   addRecord,
   getRecords,
   getRecordsByMonth,
