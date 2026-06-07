@@ -3,3 +3,16 @@ node_modules/
 *.log
 dist/
 build/
+
+# Secrets & local config — never commit
+.keys/
+.env
+.env.*
+!.env.example
+
+# CI trigger — local only, not for repo
+.ci-trigger
+
+# Python cache (if any tooling)
+__pycache__/
+*.pyc

@@ -55,6 +55,34 @@
 }
 ```
 
+## 部署到微信(CI / CD)
+
+本项目用 `miniprogram-ci` + GitHub Actions 实现 push 后自动上传到微信后台(开发版/体验版)。
+
+### 一次性配置(在 GitHub 仓库)
+
+1. 进入 GitHub 仓库 → **Settings** → **Secrets and variables** → **Actions**
+2. 添加两个 Repository secret:
+   - `WECHAT_APPID` — 你的小程序 AppID(微信公众平台 → 开发 → 开发设置)
+   - `WECHAT_PRIVATE_KEY` — 代码上传私钥的**完整 PEM 内容**,从微信公众平台 → 开发 → 开发管理 → 代码上传密钥生成,**包含** `-----BEGIN PRIVATE KEY-----` 和 `-----END PRIVATE KEY-----` 头尾
+3. push 到 `master` 分支后,GitHub Actions 会自动跑 `.github/workflows/deploy.yml` 上传
+
+### 本地手动上传(开发调试用)
+
+```bash
+export WECHAT_APPID=wx你的AppID
+export WECHAT_PRIVATE_KEY_CONTENT="$(cat /path/to/your-private-key.pem)"
+node ci.js
+```
+
+### ⚠️ 安全说明(2026-06-07 重构)
+
+历史版本曾把代码上传私钥放进 `.keys/` 并 commit 到 git(已被清理)。**该私钥已视为公开泄露**,请按以下步骤处理:
+
+1. 登录微信公众平台 → 开发 → 开发管理 → 代码上传密钥 → **重置密钥**
+2. 把新私钥填进 GitHub Secrets(`WECHAT_PRIVATE_KEY`),**不要**再次放进 `.keys/`
+3. `.keys/` 已在 `.gitignore` 中排除,任何同名目录都不会被 git 跟踪
+
 ## 技术栈
 
 - 微信小程序原生的 WXML + WXSS + JS

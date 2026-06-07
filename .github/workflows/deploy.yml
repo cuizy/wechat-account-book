@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:  # 允许手动触发(测试用)
 
 jobs:
   upload:
@@ -16,6 +17,21 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Verify required secrets
+        env:
+          WECHAT_APPID: ${{ secrets.WECHAT_APPID }}
+          WECHAT_PRIVATE_KEY: ${{ secrets.WECHAT_PRIVATE_KEY }}
+        run: |
+          if [ -z "$WECHAT_APPID" ]; then
+            echo "::error::Secret WECHAT_APPID is not set. Configure it in repo Settings → Secrets."
+            exit 1
+          fi
+          if [ -z "$WECHAT_PRIVATE_KEY" ]; then
+            echo "::error::Secret WECHAT_PRIVATE_KEY is not set. Configure it in repo Settings → Secrets."
+            exit 1
+          fi
+          echo "✓ Secrets present (WECHAT_APPID=${WECHAT_APPID:0:8}..., key length=${#WECHAT_PRIVATE_KEY})"
+
       - name: Install deps
         run: npm install
 
@@ -25,6 +41,7 @@ jobs:
           WECHAT_APPID: ${{ secrets.WECHAT_APPID }}
           WECHAT_PRIVATE_KEY_CONTENT: ${{ secrets.WECHAT_PRIVATE_KEY }}
           WECHAT_VERSION: ${{ github.run_number }}
+          WECHAT_DESC: ${{ github.event.head_commit.message }}
           CI: true
           OPENSSL_ENABLE_LEGACY_PROVIDER: true
           NODE_OPTIONS: --openssl-legacy-provider
