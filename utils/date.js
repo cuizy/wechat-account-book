@@ -22,16 +22,7 @@ function getCurrentMonth(date) {
   return `${year}-${month}`;
 }
 
-/**
- * 解析 YYYY-MM 字符串为 Date 对象
- */
-function parseMonth(monthStr) {
-  const [year, month] = monthStr.split('-').map(Number);
-  return new Date(year, month - 1);
-}
-
 module.exports = {
   formatDate,
-  getCurrentMonth,
-  parseMonth
+  getCurrentMonth
 };
